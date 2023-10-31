@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'nagoyameshi.apps.NagoyameshiConfig',
     'phonenumber_field',
+    'django_bootstrap5'
 ]
 
 MIDDLEWARE = [
