@@ -19,9 +19,12 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include( ('nagoyameshi.urls', 'nagoyameshi') )),
-    # path('hello/<str:name>', views.hello_world, name="hello_world"),
-    path('search/', include('nagoyameshi.urls', 'search')),
-    path('login/', include('nagoyameshi.urls', 'login')),
-    path('register/', include('nagoyameshi.urls', 'register')),
+    path('nagoyameshi/', include('nagoyameshi.urls')),
 ]
+
+
+    # path('hello/<str:name>', views.hello_world, name="hello_world"),
+    # path('nagoyameshi/', include('nagoyameshi.urls')), 
+    # path('search/', include('nagoyameshi.urls', 'search')),
+    # path('login/', include('nagoyameshi.urls', 'login')),
+    # path('register/', include('nagoyameshi.urls', 'register')),

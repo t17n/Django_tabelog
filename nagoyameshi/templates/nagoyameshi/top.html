@@ -1,6 +1,6 @@
 
+{% load static%}
 <!doctype html>
-
 <html lang="ja">
     <head>
         <meta charset="utf-8">
@@ -10,33 +10,63 @@
         <title>NAGOYAMESHI</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous" defer></script>
-        <link href = {% static "nagoyameshi/style.css" %} rel="nagoyameshi">
     </head>
     <body>
-        <nav class="navbar">
+        <nav class="navbar naavber-expand-lg">
             <div class="container">
                 <a>NAGOYAMESHI</a>
             </div>
             <div class="navbar-toggloer" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <input type="checkbox" id="hamburger_btn_check">
                 <label for="hamburger_btn_check" class="hamburger_btn">
-                  <img class="btn_open" src="{% static 'imges/button_open.png' %}" alt="ナビゲーションバーのボタン">
+                  <img class="btn_open" src="{% static 'nagoyameshi/images/button_open.png' %}" alt="ナビゲーションバーのボタン">
                   <img class="btn_close" src="{% static 'nagoyameshi/images/button_close.png' %}" alt="ナビゲーションバーのボタン">
                 </label>
             </div>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                  <li class="nav-item px-2">
+                    <a class="nav-link my_nav_link my-2" aria-current="page" href="#login">ログイン</a>
+                  </li>    
+                  <li class="nav-item px-2">
+                    <a class="nav-link my_nav_link my-2" href="#member">新規登録</a>
+                  </li>
+                </ul>
+            </div>
         </nav>
         
-        <div id="myCarousel" class="carousel" data-ba-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-bs-target="myCarousel" data-bs-slide-to="1"></li>
-                <li data-bs-target="myCarousel" data-bs-slide-to="2"></li>
-                <li data-bs-target="myCarousel" data-bs-slide-to="3"></li>
-            </ol>
+        <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
             <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="{% static 'nagoyameshi/images/unadon.jpg' %}" class="d-block w-100" alt="unadon">
+                </div>
                 <div class="carousel-item">
-                    <img="{% static 'static/nagoyameshi/images/top1.jpg' %}}" alt="サンプル"
+                    <img src="{% static 'nagoyameshi/images/shop3.jpg' %}" class="d-block w-100" alt="shop">
+                </div>
+                <div class="carousel-item">
+                    <img src="{% static 'nagoyameshi/images/soba.jpg' %}" class="d-block w-100" alt="soba">
                 </div>
             </div>
         </div>
+        {% comment %}
+        <form method="get" action="{% url 'search' %}">
+            <input type="text" name="q" placeholder="Search..." value="{{ query }}">
+            <button type="submit">Search</button>
+        </form>
+        {% endcomment %}
+
+        <div class="container">
+            <h1 class="display-4 text-primary">店舗検索</h1>
+            <form method="get" action="{% url  %}">
+                <label>店舗検索</label>
+                <input type="text" name="name">
+                <input type="submit" value="click">
+            </form>
+        </div>
+
+
+
+
+
     </body>
 </html>
