@@ -1,0 +1,36 @@
+
+{% load static%}
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="名古屋の飲食店を紹介します。">
+    <meta name="author" content="TAKAHIRO TACHIZAKI">
+    <title>店舗詳細</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous" defer></script>
+</head>
+<body>
+    <table border="3">
+        <tr><th>店舗名</th><td>{{object.name}}</td></tr>
+        <tr><th>写真</th><td>{{object.img}}</td></tr>
+        <tr><th>電話番号</th><td>{{object.phonenumber}}</td></tr>
+        <tr><th>住所</th><td>{{object.address}}</td></tr>
+        <tr><th>最寄駅</th><td>{{object.neareststation}}</td></tr>
+        <tr><th>予約</th><td>{{object.shop_reservation}}</td></tr>
+        <tr><th>個室</th><td>{{object.privateroom}}</td></tr>
+        <tr><th>禁煙</th><td>{{object.nosmoking}}</td></tr>
+        <tr><th>喫煙ブース</th><td>{{object.smokingbooth}}</td></tr>
+        <tr><th>駐車場</th><td>{{object.parking}}</td></tr>
+        <tr><th>開業日</th><td>{{object.openingdate}}</td></tr>
+        <tr><th>席数</th><td>{{object.seats}}席</td></tr>
+        <tr><th>開店時間</th><td>{{object.opening_time}}</td></tr>
+        <tr><th>閉店時間</th><td>{{object.closing_time}}</td></tr>
+        <tr><th>休業日</th><td>{{object.ay_of_week}}</td></tr>
+        <tr><th>SNS</th><td>{{object.sns}}</td></tr>
+        <tr><th>レビュー</th><td>{{object.shop_review}}</td></tr>
+    </table>
+        <a href="{% url 'top' %}">TOP</a>
+    </body>
+</html>
