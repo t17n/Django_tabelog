@@ -7,4 +7,5 @@ urlpatterns = [
     path('', views.top, name="top"),
     path('detail/<int:pk>', ShopDetail.as_view(), name='detail'),
     path('search', views.search, name='search'),
+    path('genre/<str:genre>', views.genre, name='genre'),
 ]

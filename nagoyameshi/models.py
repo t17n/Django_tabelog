@@ -2,13 +2,7 @@ from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
 
-GENRE_CHOICES = [
-    ('和食', '和食'),
-    ('洋食', '洋食'),
-    ('魚介', '魚介'),
-    ('ピザ・パスタ', 'ピザ・パスタ'),
-    ('カレー', 'カレー'),     
-]
+
 
 SCORE_CHOICES = [
     (1, '★'),
@@ -51,6 +45,13 @@ class Shop(models.Model):
     sns = models.URLField(max_length=100, blank=True, null=True)
     shop_review = models.TextField(blank=True, null=True)
     
+    GENRE_CHOICES = [
+    ('和食', '和食'),
+    ('洋食', '洋食'),
+    ('魚介', '魚介'),
+    ('ピザ・パスタ', 'ピザ・パスタ'),
+    ('カレー', 'カレー'),     
+]
 
     # 予算
     budget = models.PositiveIntegerField(verbose_name="予算(円)")

@@ -54,6 +54,25 @@
         <tr><td></td><td>
         <input type="submit" class="btn btn-primary" value="検索">
         </table>
-    </form>
+{% comment %}
+    <h2>こだわり条件から探す</h2>
+    <a href="{% url '' %}">ベジタリアン</a>
+    <a href="{% url '' %}">ビーガン</a>
+    <a href="{% url '' %}">日本酒</a>
+    <a href="{% url '' %}">個室</a>
+    <a href="{% url '' %}">座敷</a>
+    <a href="{% url '' %}">掘りごたつ</a>
+    <a href="{% url '' %}">食べ放題</a>
+    <a href="{% url '' %}">飲み放題</a>
+{% endcomment %}
+<h2>料理ジャンルから探す</h2>
+<ul>
+    {% for genre in genres %}
+    <li>
+        <a href="{% url 'genre' genre=genre.0 %}">{{ genre.1 }}</a>
+        {% comment %} <a href="{% url 'genre' %}?genre={{ genre.0 }}">{{ genre.1 }}</a> {% endcomment %}
+    </li>
+    {% endfor %}
+</ul>
 </body>
 </html>
