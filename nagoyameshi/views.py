@@ -8,9 +8,11 @@ from django.db.models import Q
 def top(request):
     form = SearchForm()
     genres = Shop.GENRE_CHOICES
+    conditions = Shop.CONDITIONS
     params = {
         'form': form,
         'genres': genres,
+        'conditions': conditions,
     }
     return render(request, 'nagoyameshi/top.html', params)
 
@@ -44,12 +46,17 @@ def search(request):
 def genre(request, genre):
     # genre = request.GET.get('genre', '')
     data = Shop.objects.filter(genre=genre)
-
     params = {
         'data': data
     }
     return render(request, 'nagoyameshi/search.html', params)
 
+def condition(request, condition):
+    data = Shop.objects.filter(condition=condition)
+    params = {
+        'data': data
+    }
+    return render(request, 'nagoyameshi/search.html', params)
 
 '''
 #店名、エリア・駅名 

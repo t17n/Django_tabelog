@@ -12,7 +12,7 @@ SCORE_CHOICES = [
     (5, '★★★★★'),
 ]
 
-WEEKDAY_CHOICES = (
+WEEKDAY_CHOICES = [
     (0, '月曜日'),
     (1, '火曜日'),
     (2, '水曜日'),
@@ -22,10 +22,30 @@ WEEKDAY_CHOICES = (
     (6, '日曜日'),
     (7, '祝日'),
     (8, '無休'),
-)
+]
+
+
 
 # 店舗モデル
 class Shop(models.Model):
+    GENRE_CHOICES = [
+        ('和食', '和食'),
+        ('洋食', '洋食'),
+        ('魚介', '魚介'),
+        ('ピザ・パスタ', 'ピザ・パスタ'),
+        ('カレー', 'カレー'),     
+    ]
+    CONDITIONS = [
+        ('ベジタリアン', 'ベジタリアン'),
+        ('ビーガン', 'ビーガン'),
+        ('日本酒', '日本酒'),
+        ('個室', '個室'),
+        ('座敷', '座敷'),
+        ('掘りごたつ', '掘りごたつ'),
+        ('食べ放題', '食べ放題'),
+        ('飲み放題', '飲み放題'),
+        ('駐車場', '駐車場'),
+    ]
     name = models.CharField(verbose_name="店名", max_length=50)
     photo = models.ImageField(verbose_name="写真", blank=True, null=True)
     phonenumber = PhoneNumberField(verbose_name="電話番号", region='JP')
@@ -36,34 +56,22 @@ class Shop(models.Model):
     privateroom = models.BooleanField(verbose_name="個室有")
     nosmoking = models.BooleanField(verbose_name="禁煙")
     smokingbooth = models.BooleanField(verbose_name="喫煙ブース有")
-    parking = models.BooleanField(verbose_name="駐車場有")
+    condition = models.CharField(verbose_name="こだわり条件", blank=True, max_length=50, choices=CONDITIONS)
     openingdate = models.DateField(verbose_name="開業日")
     seats = models.PositiveIntegerField(verbose_name="席数")
     opening_time = models.TimeField(verbose_name="開店時間")
     closing_time = models.TimeField(verbose_name="閉店時間")
     day_of_week = models.IntegerField(verbose_name="店休日", choices=WEEKDAY_CHOICES)
     sns = models.URLField(max_length=100, blank=True, null=True)
-    shop_review = models.TextField(blank=True, null=True)
-    
-    GENRE_CHOICES = [
-    ('和食', '和食'),
-    ('洋食', '洋食'),
-    ('魚介', '魚介'),
-    ('ピザ・パスタ', 'ピザ・パスタ'),
-    ('カレー', 'カレー'),     
-]
-
-    # 予算
+    shop_review = models.CharField(verbose_name="レビュー", max_length=100, blank=True, null=True)
     budget = models.PositiveIntegerField(verbose_name="予算(円)")
-    
-    # ジャンル
     genre = models.CharField(verbose_name="ジャンル", max_length=20, choices=GENRE_CHOICES)
-
     created_at = models.DateField(auto_now_add = True)
     updated_at = models.DateField(auto_now = True)
     
     def __str__(self):
         return self.name
+
 
 
 # 会員モデル
@@ -120,7 +128,7 @@ class Reservation(models.Model):
 
 # レビューモデル
 class Review(models.Model):
-    review_shop = models.ForeignKey(Shop, on_delete=models.PROTECT, verbose_name="店舗")
+    review_shop = models.ForeignKey('Shop', on_delete=models.CASCADE, verbose_name="店舗")
     photo = models.ImageField(verbose_name="写真", blank=True, null=True)
     review_member = models.ForeignKey(Member, on_delete=models.PROTECT, verbose_name="レビュー者")
     # reviewer_name = models.CharField(max_length=50)
