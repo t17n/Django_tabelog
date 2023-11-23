@@ -25,7 +25,6 @@ WEEKDAY_CHOICES = [
 ]
 
 
-
 # 店舗モデル
 class Shop(models.Model):
     GENRE_CHOICES = [
@@ -47,15 +46,16 @@ class Shop(models.Model):
         ('駐車場', '駐車場'),
     ]
     name = models.CharField(verbose_name="店名", max_length=50)
-    photo = models.ImageField(verbose_name="写真", blank=True, null=True)
+    image = models.ImageField(verbose_name="写真", blank=True, null=True, default='noImage.png')
     phonenumber = PhoneNumberField(verbose_name="電話番号", region='JP')
     address = models.CharField(verbose_name="住所", max_length=100)
     access = models.CharField(verbose_name="アクセス", max_length=100)
     neareststation = models.CharField(verbose_name="最寄駅", max_length=50)
-    shop_reservation = models.BooleanField(verbose_name="予約可")
-    privateroom = models.BooleanField(verbose_name="個室有")
+    shop_reservation = models.BooleanField(verbose_name="予約")
+    privateroom = models.BooleanField(verbose_name="個室")
     nosmoking = models.BooleanField(verbose_name="禁煙")
-    smokingbooth = models.BooleanField(verbose_name="喫煙ブース有")
+    smokingbooth = models.BooleanField(verbose_name="喫煙ブース")
+    parking = models.BooleanField(verbose_name="駐車場")
     condition = models.CharField(verbose_name="こだわり条件", blank=True, max_length=50, choices=CONDITIONS)
     openingdate = models.DateField(verbose_name="開業日")
     seats = models.PositiveIntegerField(verbose_name="席数")
@@ -63,15 +63,16 @@ class Shop(models.Model):
     closing_time = models.TimeField(verbose_name="閉店時間")
     day_of_week = models.IntegerField(verbose_name="店休日", choices=WEEKDAY_CHOICES)
     sns = models.URLField(max_length=100, blank=True, null=True)
-    shop_review = models.CharField(verbose_name="レビュー", max_length=100, blank=True, null=True)
+    # shop_review = models.CharField(verbose_name="レビュー", max_length=100, blank=True, null=True)
     budget = models.PositiveIntegerField(verbose_name="予算(円)")
     genre = models.CharField(verbose_name="ジャンル", max_length=20, choices=GENRE_CHOICES)
     created_at = models.DateField(auto_now_add = True)
     updated_at = models.DateField(auto_now = True)
-    
-    def __str__(self):
-        return self.name
 
+
+
+    def __str__(self):
+        image_tag.short_description = 'Image'
 
 
 # 会員モデル
@@ -87,26 +88,26 @@ class Member(models.Model):
     expiration_date = models.DateField(verbose_name="有効期限", blank=True, null=True, )
     cvv = models.CharField(verbose_name="パスワード", max_length=4, blank=True, null=True)  # 仮の設定。実際には暗号化が必要です
 
-    favorite_shop = models.CharField(verbose_name="お気に入り", max_length=50, blank=True, null=True)
-    review_shop = models.CharField(verbose_name="レビューした店舗", max_length=50, blank=True, null=True)
-    m_review = models.TextField(verbose_name="レビュー", blank=True, null=True)
-    reservedshop = models.CharField(verbose_name="予約店舗", max_length=50, blank=True, null=True)
+    # favorite_shop = models.CharField(verbose_name="お気に入り", max_length=50, blank=True, null=True)
+    # review_shop = models.CharField(verbose_name="レビューした店舗", max_length=50, blank=True, null=True)
+    # m_review = models.TextField(verbose_name="レビュー", blank=True, null=True)
+    # reservedshop = models.CharField(verbose_name="予約店舗", max_length=50, blank=True, null=True)
     
     created_at = models.DateField(auto_now_add = True, null=True)
     updated_at = models.DateField(auto_now = True)
     
     def __str__(self):
-        return self.name
+        return str(self.name)
 
     
 
 # 売上モデル
 class Sales(models.Model):
-    members = models.ForeignKey(Member, on_delete=models.PROTECT, verbose_name='有料会員')
+    members = models.ForeignKey(Member, on_delete=models.PROTECT, verbose_name='有料会員',)
     money = models.PositiveIntegerField(verbose_name="売上")
 
     def __str__(self):
-        return self.members.name
+        return str(self.members.name)
 
 
 # 予約モデル
@@ -120,15 +121,15 @@ class Reservation(models.Model):
     updated_at = models.DateField(auto_now=True)
 
     def __str__(self):
-        return self.reserve_shop.name
+        return str(self.reserve_shop.name)
     
     def __str__(self):
-        return self.res_customer.name
+        return str(self.res_customer.name)
 
 
 # レビューモデル
 class Review(models.Model):
-    review_shop = models.ForeignKey('Shop', on_delete=models.CASCADE, verbose_name="店舗")
+    review_shop = models.ForeignKey('Shop', on_delete=models.CASCADE, related_name='reviews', verbose_name="店舗")
     photo = models.ImageField(verbose_name="写真", blank=True, null=True)
     review_member = models.ForeignKey(Member, on_delete=models.PROTECT, verbose_name="レビュー者")
     # reviewer_name = models.CharField(max_length=50)
@@ -139,7 +140,7 @@ class Review(models.Model):
     updated_at = models.DateField(auto_now=True)
 
     def __str__(self):
-        return self.review_shop.name
+        return str(self.review_shop.name)
 
 # お気に入りモデル
 class Favorite(models.Model):
@@ -149,4 +150,4 @@ class Favorite(models.Model):
     updated_at = models.DateField(auto_now=True)
 
     def __str__(self):
-        return self.shop
+        return str(self.customer)

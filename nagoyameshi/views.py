@@ -3,6 +3,9 @@ from .models import Shop
 from django.views.generic import ListView, DetailView
 from .forms import SearchForm
 from django.db.models import Q
+from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.forms import AuthenticationForm
 
 
 def top(request):
@@ -58,7 +61,22 @@ def condition(request, condition):
     }
     return render(request, 'nagoyameshi/search.html', params)
 
-'''
+
+class ShopList(ListView):
+    model = Shop
+
+class ShopDetail(DetailView):
+    model = Shop
+
+class LoginView(LoginView):
+    form_class = AuthenticationForm
+    template_name = 'nagoyameshi/login.html'
+
+class LogoutView(LoginRequiredMixin, LogoutView):
+    template_name = 'top.html'
+
+
+'''無し
 #店名、エリア・駅名 
 def search(request):
     if (request.method == 'POST'):
@@ -89,16 +107,4 @@ def search(request):
             # search = form.cleaned_data['search']
             data = Shop.objects.filter(name__contains=search)
 
-    params = {
-        'form': form,
-        'data': data,
-        # 'search_keyword': search_keyword,
-    }
-    return render(request, 'nagoyameshi/search.html', params)
 '''
-
-class ShopList(ListView):
-    model = Shop
-
-class ShopDetail(DetailView):
-    model = Shop

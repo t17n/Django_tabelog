@@ -14,15 +14,20 @@
 <body>
     <table border="3">
         <tr><th>店舗名</th><td>{{object.name}}</td></tr>
-        <tr><th>写真</th><td>{{object.img}}</td></tr>
+        <tr><th>写真</th><td>{{object.image}}</td></tr>
         <tr><th>電話番号</th><td>{{object.phonenumber}}</td></tr>
         <tr><th>住所</th><td>{{object.address}}</td></tr>
         <tr><th>最寄駅</th><td>{{object.neareststation}}</td></tr>
-        <tr><th>予約</th><td>{{object.shop_reservation}}</td></tr>
-        <tr><th>個室</th><td>{{object.privateroom}}</td></tr>
-        <tr><th>禁煙</th><td>{{object.nosmoking}}</td></tr>
-        <tr><th>喫煙ブース</th><td>{{object.smokingbooth}}</td></tr>
-        <tr><th>駐車場</th><td>{{object.parking}}</td></tr>
+        <tr><th>予約</th><td>{% if object.shop_reservation == False %}不可{% endif %}
+                             {% if object.shop_reservation == True %}可{% endif %} </td></tr>
+        <tr><th>個室</th><td>{% if object.privateroom == False %}無{% endif %}
+                             {% if object.privateroom == True %}有{% endif %} </td></tr></td></tr>
+        <tr><th>禁煙</th><td>{% if object.nosmoking == False %}喫煙可{% endif %}
+                             {% if object.nosmoking == True %}禁煙{% endif %} </td></tr></td></tr>
+        <tr><th>喫煙ブース</th><td>{% if object.smokingbooth == False %}無{% endif %}
+                                  {% if object.smokingbooth == True %}有{% endif %} </td></tr></td></tr>
+        <tr><th>駐車場</th><td>{% if object.parking == False %}無{% endif %}
+                               {% if object.parking == True %}有{% endif %} </td></tr></td></tr>
         <tr><th>開業日</th><td>{{object.openingdate}}</td></tr>
         <tr><th>席数</th><td>{{object.seats}}席</td></tr>
         <tr><th>開店時間</th><td>{{object.opening_time}}</td></tr>

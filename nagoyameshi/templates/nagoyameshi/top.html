@@ -25,12 +25,19 @@
         </div>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
+                {% if request.user.is_authenticated %}
+                <span class="navbar-text">ようこそ{{ user.get_username }}さん</span>
                 <li class="nav-item px-2">
-                    <a class="nav-link my_nav_link my-2" aria-current="page" href="#login">ログイン</a>
+                    <a class="nav-link" href="{% url 'logout' %}">ログアウト</a>
+                </li>
+                {% else %}
+                <li class="nav-item px-2">
+                    <a class="nav-link" href="{% url 'login' %}">ログイン</a>
                 </li>    
                 <li class="nav-item px-2">
                     <a class="nav-link my_nav_link my-2" href="#member">会員登録</a>
                 </li>
+                {% endif %}
             </ul>
         </div>
     </nav>        
