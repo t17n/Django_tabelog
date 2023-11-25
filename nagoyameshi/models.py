@@ -46,7 +46,7 @@ class Shop(models.Model):
         ('駐車場', '駐車場'),
     ]
     name = models.CharField(verbose_name="店名", max_length=50)
-    image = models.ImageField(verbose_name="写真", blank=True, null=True, default='noImage.png')
+    image = models.ImageField(verbose_name="写真", blank=True, null=True, default="mysite/static/nagoyameshi/images/noImage.png")
     phonenumber = PhoneNumberField(verbose_name="電話番号", region='JP')
     address = models.CharField(verbose_name="住所", max_length=100)
     access = models.CharField(verbose_name="アクセス", max_length=100)
@@ -68,11 +68,13 @@ class Shop(models.Model):
     genre = models.CharField(verbose_name="ジャンル", max_length=20, choices=GENRE_CHOICES)
     created_at = models.DateField(auto_now_add = True)
     updated_at = models.DateField(auto_now = True)
-
-
-
+    '''
     def __str__(self):
         image_tag.short_description = 'Image'
+    '''
+
+    def __str__(self):
+        return(self.name)
 
 
 # 会員モデル

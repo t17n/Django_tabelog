@@ -34,7 +34,9 @@
         <tr><th>閉店時間</th><td>{{object.closing_time}}</td></tr>
         <tr><th>休業日</th><td>{{object.ay_of_week}}</td></tr>
         <tr><th>SNS</th><td>{{object.sns}}</td></tr>
-        <tr><th>レビュー</th><td>{{object.shop_review}}</td></tr>
+        {% for review in object.reviews.all %}
+        <tr><th>レビュー</th><td>{{review.comment}}{{review.review_member}}</td></tr>
+        {% endfor %}
     </table>
         <a href="{% url 'top' %}">TOP</a>
     </body>
