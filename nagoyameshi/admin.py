@@ -3,12 +3,12 @@ from .models import Shop, Member, Sales, Reservation, Review, Favorite
 from django.utils.safestring import mark_safe
 
 class ShopAdmin(admin.ModelAdmin):
-    list_display = ('name', 'genre', 'image_tag')
+    list_display = ('name', 'genre', 'image')
     #  'image', 'image_tag',
     
-    def image_tag(self, obj):
-        return mark_safe('<img src="/nagoyameshi{}" style="width:100px height:auto;">'.format(obj.image.url))
-        # return mark_safe('<img src=f"/nagoyameshi{obj.image.url}" style="width:100px height:auto;">')
+    def image(self, obj):
+        return mark_safe('<img src="{}" style="width:100px height:auto;">'.format(obj.img.url))
+        # return mark_safe('<img src=f"{obj.image.url}" style="width:100px height:auto;">')
     
         
 class ReviewAdmin(admin.ModelAdmin):

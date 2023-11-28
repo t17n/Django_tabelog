@@ -46,7 +46,7 @@ class Shop(models.Model):
         ('駐車場', '駐車場'),
     ]
     name = models.CharField(verbose_name="店名", max_length=50)
-    image = models.ImageField(verbose_name="写真", blank=True, null=True, default="mysite/static/nagoyameshi/images/noImage.png")
+    image = models.ImageField(verbose_name="写真", blank=True, default="noImage.png", upload_to="media_local")
     phonenumber = PhoneNumberField(verbose_name="電話番号", region='JP')
     address = models.CharField(verbose_name="住所", max_length=100)
     access = models.CharField(verbose_name="アクセス", max_length=100)

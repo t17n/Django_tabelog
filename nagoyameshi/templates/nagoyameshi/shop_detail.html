@@ -14,7 +14,9 @@
 <body>
     <table border="3">
         <tr><th>店舗名</th><td>{{object.name}}</td></tr>
-        <tr><th>写真</th><td>{{object.image}}</td></tr>
+        <tr><th>写真</th><td><img src="{{object.image.url}}"></td></tr>
+        {% comment %} <tr><th>写真</th><td><img src="{% static 'media/object.image' %}" alt="{{ object.name }} "></td></tr> {% endcomment %}
+        {% comment %} <tr><th>写真</th><td><img src="{% static 'cafe.jpg' %}"></td></tr> {% endcomment %}
         <tr><th>電話番号</th><td>{{object.phonenumber}}</td></tr>
         <tr><th>住所</th><td>{{object.address}}</td></tr>
         <tr><th>最寄駅</th><td>{{object.neareststation}}</td></tr>

@@ -128,6 +128,10 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'top'
 LOGOUT_REDIRECT_URL = 'top'
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media_local'
 
+'''
 MEDIA_URL = '/images/'
 MEDIA_ROOT = BASE_DIR / 'nagoyameshi' / 'images'
+'''
