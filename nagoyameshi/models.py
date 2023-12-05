@@ -5,25 +5,29 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 SCORE_CHOICES = [
-    (1, '★'),
-    (2, '★★'),
-    (3, '★★★'),
-    (4, '★★★★'),
-    (5, '★★★★★'),
+    ('★', '★'),
+    ('★★', '★★'),
+    ('★★★', '★★★'),
+    ('★★★★', '★★★★'),
+    ('★★★★★', '★★★★★'),
 ]
 
 WEEKDAY_CHOICES = [
-    (0, '月曜日'),
-    (1, '火曜日'),
-    (2, '水曜日'),
-    (3, '木曜日'),
-    (4, '金曜日'),
-    (5, '土曜日'),
-    (6, '日曜日'),
-    (7, '祝日'),
-    (8, '無休'),
+    ('月曜日', '月曜日'),
+    ('火曜日', '火曜日'),
+    ('水曜日', '水曜日'),
+    ('木曜日', '木曜日'),
+    ('金曜日', '金曜日'),
+    ('土曜日', '土曜日'),
+    ('日曜日', '日曜日'),
+    ('祝日', '祝日'),
+    ('無休', '無休'),
 ]
 
+class Condition(models.Model):
+    kodawari = models.CharField(verbose_name="こだわり条件", max_length=50,)
+    def __str__(self):
+        return(self.kodawari)
 
 # 店舗モデル
 class Shop(models.Model):
@@ -34,6 +38,7 @@ class Shop(models.Model):
         ('ピザ・パスタ', 'ピザ・パスタ'),
         ('カレー', 'カレー'),     
     ]
+    '''
     CONDITIONS = [
         ('ベジタリアン', 'ベジタリアン'),
         ('ビーガン', 'ビーガン'),
@@ -45,6 +50,7 @@ class Shop(models.Model):
         ('飲み放題', '飲み放題'),
         ('駐車場', '駐車場'),
     ]
+    '''
     name = models.CharField(verbose_name="店名", max_length=50)
     image = models.ImageField(verbose_name="写真", blank=True, default="noImage.png", upload_to="media_local")
     phonenumber = PhoneNumberField(verbose_name="電話番号", region='JP')
@@ -52,11 +58,12 @@ class Shop(models.Model):
     access = models.CharField(verbose_name="アクセス", max_length=100)
     neareststation = models.CharField(verbose_name="最寄駅", max_length=50)
     shop_reservation = models.BooleanField(verbose_name="予約")
-    privateroom = models.BooleanField(verbose_name="個室")
+    # privateroom = models.BooleanField(verbose_name="個室")
     nosmoking = models.BooleanField(verbose_name="禁煙")
     smokingbooth = models.BooleanField(verbose_name="喫煙ブース")
     parking = models.BooleanField(verbose_name="駐車場")
-    condition = models.CharField(verbose_name="こだわり条件", blank=True, max_length=50, choices=CONDITIONS)
+    condition = models.ManyToManyField("Condition", verbose_name="こだわり条件")
+    # condition = models.CharField(verbose_name="こだわり条件", blank=True, max_length=50, choices=CONDITIONS)
     openingdate = models.DateField(verbose_name="開業日")
     seats = models.PositiveIntegerField(verbose_name="席数")
     opening_time = models.TimeField(verbose_name="開店時間")
@@ -105,7 +112,7 @@ class Member(models.Model):
 
 # 売上モデル
 class Sales(models.Model):
-    members = models.ForeignKey(Member, on_delete=models.PROTECT, verbose_name='有料会員',)
+    members = models.ForeignKey(Member, on_delete=models.PROTECT, verbose_name="有料会員",)
     money = models.PositiveIntegerField(verbose_name="売上")
 
     def __str__(self):
@@ -131,7 +138,7 @@ class Reservation(models.Model):
 
 # レビューモデル
 class Review(models.Model):
-    review_shop = models.ForeignKey('Shop', on_delete=models.CASCADE, related_name='reviews', verbose_name="店舗")
+    review_shop = models.ForeignKey("Shop", on_delete=models.CASCADE, related_name="reviews", verbose_name="店舗")
     photo = models.ImageField(verbose_name="写真", blank=True, null=True)
     review_member = models.ForeignKey(Member, on_delete=models.PROTECT, verbose_name="レビュー者")
     # reviewer_name = models.CharField(max_length=50)

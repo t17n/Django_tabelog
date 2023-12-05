@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Shop, Member, Sales, Reservation, Review, Favorite
+from .models import Shop, Member, Sales, Reservation, Review, Favorite, Condition
 from django.utils.safestring import mark_safe
 
 class ShopAdmin(admin.ModelAdmin):
@@ -20,3 +20,4 @@ admin.site.register(Sales)
 admin.site.register(Reservation)
 admin.site.register(Review, ReviewAdmin)
 admin.site.register(Favorite)
+admin.site.register(Condition)

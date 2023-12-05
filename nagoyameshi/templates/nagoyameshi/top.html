@@ -65,7 +65,7 @@
 <ul>
     {% for condition in conditions %}
     <div>
-        <a href="{% url 'condition' condition=condition.0 %}">{{ condition.1 }}</a>
+        <a href="{% url 'condition' condition.id %}">{{ condition }}</a>
     </div>
     {% endfor %}
 </ul>

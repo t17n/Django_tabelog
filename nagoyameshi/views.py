@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect
-from .models import Shop
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Shop, Condition
 from django.views.generic import ListView, DetailView
 from .forms import SearchForm
 from django.db.models import Q
@@ -8,10 +8,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import AuthenticationForm
 
 
+
 def top(request):
     form = SearchForm()
     genres = Shop.GENRE_CHOICES
-    conditions = Shop.CONDITIONS
+    conditions = Condition.objects.all()
     params = {
         'form': form,
         'genres': genres,
@@ -54,8 +55,10 @@ def genre(request, genre):
     }
     return render(request, 'nagoyameshi/search.html', params)
 
-def condition(request, condition):
-    data = Shop.objects.filter(condition=condition)
+def condition(request, id):
+    data = Shop.objects.filter(pk=id)
+    # data = get_object_or_404(Shop, pk=id)
+    # data = Shop.objects.filter(condition=condition)
     params = {
         'data': data
     }
@@ -65,8 +68,17 @@ def condition(request, condition):
 class ShopList(ListView):
     model = Shop
 
-class ShopDetail(DetailView):
-    model = Shop
+# class ShopDetail(DetailView):
+#     model = Shop
+
+def ShopDetail(request, pk):
+    shop = get_object_or_404(Shop, pk=pk)
+    conditions = shop.condition.all()
+    params = {
+        'shop': shop,
+        'conditions': conditions,
+    }
+    return render(request, "nagoyameshi/shop_detail.html", params)
 
 class LoginView(LoginView):
     form_class = AuthenticationForm

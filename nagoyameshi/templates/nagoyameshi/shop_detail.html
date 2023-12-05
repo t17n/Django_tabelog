@@ -13,31 +13,30 @@
 </head>
 <body>
     <table border="3">
-        <tr><th>店舗名</th><td>{{object.name}}</td></tr>
-        <tr><th>写真</th><td><img src="{{object.image.url}}"></td></tr>
-        {% comment %} <tr><th>写真</th><td><img src="{% static 'media/object.image' %}" alt="{{ object.name }} "></td></tr> {% endcomment %}
-        {% comment %} <tr><th>写真</th><td><img src="{% static 'cafe.jpg' %}"></td></tr> {% endcomment %}
-        <tr><th>電話番号</th><td>{{object.phonenumber}}</td></tr>
-        <tr><th>住所</th><td>{{object.address}}</td></tr>
-        <tr><th>最寄駅</th><td>{{object.neareststation}}</td></tr>
-        <tr><th>予約</th><td>{% if object.shop_reservation == False %}不可{% endif %}
-                             {% if object.shop_reservation == True %}可{% endif %} </td></tr>
-        <tr><th>個室</th><td>{% if object.privateroom == False %}無{% endif %}
-                             {% if object.privateroom == True %}有{% endif %} </td></tr></td></tr>
-        <tr><th>禁煙</th><td>{% if object.nosmoking == False %}喫煙可{% endif %}
-                             {% if object.nosmoking == True %}禁煙{% endif %} </td></tr></td></tr>
-        <tr><th>喫煙ブース</th><td>{% if object.smokingbooth == False %}無{% endif %}
-                                  {% if object.smokingbooth == True %}有{% endif %} </td></tr></td></tr>
-        <tr><th>駐車場</th><td>{% if object.parking == False %}無{% endif %}
-                               {% if object.parking == True %}有{% endif %} </td></tr></td></tr>
-        <tr><th>開業日</th><td>{{object.openingdate}}</td></tr>
-        <tr><th>席数</th><td>{{object.seats}}席</td></tr>
-        <tr><th>開店時間</th><td>{{object.opening_time}}</td></tr>
-        <tr><th>閉店時間</th><td>{{object.closing_time}}</td></tr>
-        <tr><th>休業日</th><td>{{object.ay_of_week}}</td></tr>
-        <tr><th>SNS</th><td>{{object.sns}}</td></tr>
-        {% for review in object.reviews.all %}
-        <tr><th>レビュー</th><td>{{review.comment}}{{review.review_member}}</td></tr>
+        <tr><th>店舗名</th><td>{{shop.name}}</td></tr>
+        <tr><th>写真</th><td><img src="{{shop.image.url}}"></td></tr>
+        <tr><th>電話番号</th><td>{{shop.phonenumber}}</td></tr>
+        <tr><th>住所</th><td>{{shop.address}}</td></tr>
+        <tr><th>最寄駅</th><td>{{shop.neareststation}}</td></tr>
+        {% for cond in shop.condition.all %}
+        <tr><th>こだわり条件</th><td>{{ cond }}</td></tr>
+        {% endfor %}
+        <tr><th>予約</th><td>{% if shop.shop_reservation == False %}不可{% endif %}
+                             {% if shop.shop_reservation == True %}可{% endif %} </td></tr>
+        <tr><th>禁煙</th><td>{% if shop.nosmoking == False %}喫煙可{% endif %}
+                             {% if shop.nosmoking == True %}禁煙{% endif %} </td></tr></td></tr>
+        <tr><th>喫煙ブース</th><td>{% if shop.smokingbooth == False %}無{% endif %}
+                                  {% if shop.smokingbooth == True %}有{% endif %} </td></tr></td></tr>
+        <tr><th>駐車場</th><td>{% if shop.parking == False %}無{% endif %}
+                               {% if shop.parking == True %}有{% endif %} </td></tr></td></tr>
+        <tr><th>開業日</th><td>{{shop.openingdate}}</td></tr>
+        <tr><th>席数</th><td>{{shop.seats}}席</td></tr>
+        <tr><th>開店時間</th><td>{{shop.opening_time}}</td></tr>
+        <tr><th>閉店時間</th><td>{{shop.closing_time}}</td></tr>
+        <tr><th>休業日</th><td>{{shop.day_of_week}}</td></tr>
+        <tr><th>SNS</th><td>{{shop.sns}}</td></tr>
+        {% for review in shop.reviews.all %}
+        <tr><th>レビュー</th><td>{{review.score}}{{review.comment}}{{review.review_member}}</td></tr>
         {% endfor %}
     </table>
         <a href="{% url 'top' %}">TOP</a>
