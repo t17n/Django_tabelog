@@ -1,46 +1,8 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}top page{% endblock %}
 
-{% load static%}
-<!doctype html>
-<html lang="ja">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="名古屋の飲食店を紹介します。">
-    <meta name="author" content="TAKAHIRO TACHIZAKI">
-    <title>NAGOYAMESHI</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous" defer></script>
-</head>
-<body>
-    <nav class="navbar naavber-expand-lg">
-        <div class="container">
-            <a>NAGOYAMESHI</a>
-        </div>
-        <div class="navbar-toggloer" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <input type="checkbox" id="hamburger_btn_check">
-            <label for="hamburger_btn_check" class="hamburger_btn">
-                <img class="btn_open" src="{% static 'nagoyameshi/images/button_open.png' %}" alt="ナビゲーションバーのボタン">
-                <img class="btn_close" src="{% static 'nagoyameshi/images/button_close.png' %}" alt="ナビゲーションバーのボタン">
-            </label>
-        </div>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-            <ul class="navbar-nav">
-                {% if request.user.is_authenticated %}
-                <span class="navbar-text">ようこそ{{ user.get_username }}さん</span>
-                <li class="nav-item px-2">
-                    <a class="nav-link" href="{% url 'logout' %}">ログアウト</a>
-                </li>
-                {% else %}
-                <li class="nav-item px-2">
-                    <a class="nav-link" href="{% url 'login' %}">ログイン</a>
-                </li>    
-                <li class="nav-item px-2">
-                    <a class="nav-link my_nav_link my-2" href="#member">会員登録</a>
-                </li>
-                {% endif %}
-            </ul>
-        </div>
-    </nav>        
+{% block content %}
     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
@@ -77,6 +39,4 @@
         {% comment %} <a href="{% url 'genre' %}?genre={{ genre.0 }}">{{ genre.1 }}</a> {% endcomment %}
     </div>
     {% endfor %}
-</ul>
-</body>
-</html>
+{% endblock content %}

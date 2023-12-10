@@ -56,7 +56,7 @@ def genre(request, genre):
     return render(request, 'nagoyameshi/search.html', params)
 
 def condition(request, id):
-    data = Shop.objects.filter(pk=id)
+    data = Shop.objects.filter(condition__id=id)
     # data = get_object_or_404(Shop, pk=id)
     # data = Shop.objects.filter(condition=condition)
     params = {
