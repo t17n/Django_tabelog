@@ -5,11 +5,11 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 SCORE_CHOICES = [
-    ('★', '★'),
-    ('★★', '★★'),
-    ('★★★', '★★★'),
-    ('★★★★', '★★★★'),
-    ('★★★★★', '★★★★★'),
+    (1, '★'),
+    (2, '★★'),
+    (3, '★★★'),
+    (4, '★★★★'),
+    (5, '★★★★★'),
 ]
 
 WEEKDAY_CHOICES = [

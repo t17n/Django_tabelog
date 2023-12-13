@@ -1,0 +1,14 @@
+a {
+  text-decoration: none;
+} 
+ 
+/* Bootstrapのボタンに初期設定されている周囲のborder（枠線）を消す */
+.navbar-toggler {
+  padding: 0 !important;
+  border: none;
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+}
