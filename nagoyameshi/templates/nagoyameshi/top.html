@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}top page{% endblock %}
+{% block title %}NAGOYAMESHI{% endblock %}
 
 {% block content %}
 <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
@@ -16,11 +16,11 @@
         </div>
     </div>
 </div>
-<div class="container m-2">
+<div class="container">
     <form action="{% url 'search' %}" class="form-horizontal" method="post" enctype="multipart/form-data">
     {% csrf_token %} 
         <div class="row">
-        <h3>キーワードで探す</h3>
+            <h3>キーワードで探す</h3>
             <div class="col">
                 {{ form.shop_name.label_tag}}{{ form.shop_name }}
             </div>
@@ -32,22 +32,22 @@
             </div>
         </div>
     </form>
-</div>
-<div class="container m-2">
-    <h3>こだわり条件で探す</h3>
-    {% for condition in conditions %}
-    <div class="float-start m-1">
-        <a class="btn btn-outline-secondary btn-sm" href="{% url 'condition' condition.id %}">{{ condition }}</a>
+    <div class="row">
+        <div class="col">
+            <h3>こだわり条件で探す</h3>
+            {% for condition in conditions %}
+                <a class="btn btn-outline-secondary btn-sm" href="{% url 'condition' condition.id %}">{{ condition }}</a>
+            {% endfor %}
+            <div class="clearfix"></div>
+        </div>
     </div>
-    {% endfor %}
-    <div class="clearfix"></div>
-</div>
-<div class="container m-2">
-    <h3>料理ジャンルで探す</h3>
-    {% for genre in genres %}
-    <div class="float-start m-1">
-        <a class="btn btn-outline-secondary btn-sm" href="{% url 'genre' genre=genre.0 %}">{{ genre.1 }}</a>
+    <div class="row">
+        <div class="col">
+            <h3>料理ジャンルで探す</h3>
+            {% for genre in genres %}
+                <a class="btn btn-outline-secondary btn-sm" href="{% url 'genre' genre=genre.0 %}">{{ genre.1 }}</a>
+            {% endfor %}
+        </div>
     </div>
-    {% endfor %}
 </div>
 {% endblock content %}
