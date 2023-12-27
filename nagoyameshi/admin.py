@@ -1,14 +1,13 @@
 from django.contrib import admin
-from .models import Shop, Member, Sales, Reservation, Review, Favorite, Condition
+from .models import Shop, Reservation, Sales, Review, Favorite, Condition, Genre, Member, DayOfWeek
 from django.utils.safestring import mark_safe
 
+
 class ShopAdmin(admin.ModelAdmin):
-    list_display = ('name', 'genre', 'image')
-    #  'image', 'image_tag',
+    list_display = ('name', 'image')
     
     def image(self, obj):
         return mark_safe('<img src="{}" style="width:100px height:auto;">'.format(obj.img.url))
-        # return mark_safe('<img src=f"{obj.image.url}" style="width:100px height:auto;">')
     
         
 class ReviewAdmin(admin.ModelAdmin):
@@ -21,3 +20,5 @@ admin.site.register(Reservation)
 admin.site.register(Review, ReviewAdmin)
 admin.site.register(Favorite)
 admin.site.register(Condition)
+admin.site.register(Genre)
+admin.site.register(DayOfWeek)

@@ -1,35 +1,98 @@
 
 {% extends "base.html" %}
 {% load static %}
-{% block title %}{{ shop.name }}詳細{% endblock %}
+{% block title %}{{ shop.name }}店舗詳細{% endblock %}
 
 {% block content %}
-    <table border="3">
-        <tr><th>店舗名</th><td>{{shop.name}}</td></tr>
-        <tr><th>写真</th><td><img src="{{shop.image.url}}"></td></tr>
-        <tr><th>電話番号</th><td>{{shop.phonenumber}}</td></tr>
-        <tr><th>住所</th><td>{{shop.address}}</td></tr>
-        <tr><th>最寄駅</th><td>{{shop.neareststation}}</td></tr>
-        {% for cond in shop.condition.all %}
-        <tr><th>こだわり条件</th><td>{{ cond }}</td></tr>
-        {% endfor %}
-        <tr><th>予約</th><td>{% if shop.shop_reservation == False %}不可{% endif %}
-                             {% if shop.shop_reservation == True %}可{% endif %} </td></tr>
-        <tr><th>禁煙</th><td>{% if shop.nosmoking == False %}喫煙可{% endif %}
-                             {% if shop.nosmoking == True %}禁煙{% endif %} </td></tr></td></tr>
-        <tr><th>喫煙ブース</th><td>{% if shop.smokingbooth == False %}無{% endif %}
-                                  {% if shop.smokingbooth == True %}有{% endif %} </td></tr></td></tr>
-        <tr><th>駐車場</th><td>{% if shop.parking == False %}無{% endif %}
-                               {% if shop.parking == True %}有{% endif %} </td></tr></td></tr>
-        <tr><th>開業日</th><td>{{shop.openingdate}}</td></tr>
-        <tr><th>席数</th><td>{{shop.seats}}席</td></tr>
-        <tr><th>開店時間</th><td>{{shop.opening_time}}</td></tr>
-        <tr><th>閉店時間</th><td>{{shop.closing_time}}</td></tr>
-        <tr><th>休業日</th><td>{{shop.day_of_week}}</td></tr>
-        <tr><th>SNS</th><td>{{shop.sns}}</td></tr>
+<a href="{% url 'nagoyameshi:top' %}">TOP</a>
+<div class="container text-center w-75">
+  <div class="row">
+    <h1 class="col text-center">{{shop.name}}</h1>
+  </div>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">トップ</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="review-tab" data-bs-toggle="tab" data-bs-target="#review" type="button" role="tab" aria-controls="review" aria-selected="false">レビュー</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="reserve-tab" data-bs-toggle="tab" data-bs-target="#reserve" type="button" role="tab" aria-controls="reserve" aria-selected="false">予約</button>
+    </li>
+  </ul>
+    
+    <!-- Tab panes -->
+  <div class="tab-content">
+    <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+      <img class="card-img-top" src="{{shop.image.url}}">
+        <div class="row border-bottom">
+          <div class="col">店舗名</div>
+          <div class="col">{{shop.name}}</div>
+        </div>
+        <div class="row border-bottom">
+          <div class="col">ジャンル</div>
+          <div class="col">
+            {% for genre in shop.genre.all %}
+            {{ genre }}
+            {% endfor %}
+          </div>
+        </div>
+        <div class="row border-bottom">
+          <div class="col">電話番号</div>
+          <div class="col">{{shop.phonenumber}}</div>
+        </div>
+        <div class="row border-bottom">
+          <div class="col">住所</div>
+          <div class="col">{{shop.address}}</div>
+        </div>
+        <div class="row border-bottom">
+          <div class="col">最寄り駅</div>
+          <div class="col">{{shop.neareststation}}</div>
+        </div>
+        <div class="row border-bottom">
+          <div class="col">開業日</div>
+          <div class="col">{{shop.openingdate}}</div>
+        </div>
+        <div class="row border-bottom">
+          <div class="col">席数</div>
+          <div class="col">{{shop.seats}}席</div>
+        </div>
+        <div class="row border-bottom">
+          <div class="col">営業時間</div>
+          <div class="col">{{shop.opening_time}} ~ {{shop.closing_time}}</div>
+        </div>
+        <div class="row border-bottom">
+          <div class="col">予算</div>
+          <div class="col">{{shop.budget_min}} ~ {{shop.budget_max}}円</div>
+        </div>
+        <div class="row border-bottom">
+          <div class="col">定休日</div>
+          <div class="col">
+            {% for dayofweek in shop.day_of_week.all %}
+            {{ dayofweek }}
+            {% endfor %}
+          </div>
+        </div>
+        <div class="row border-bottom">
+          <div class="col">こだわり条件</div>
+          <div class="col">
+            {% for cond in shop.condition.all %}
+            {{ cond }}
+            {% endfor %}
+          </div>
+        </div>
+    </div>
+    <div class="tab-pane" id="review" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+      <div class="row">
         {% for review in shop.reviews.all %}
-        <tr><th>レビュー</th><td>{{review.get_score_display}}{{review.comment}}{{review.review_member}}</td></tr>
+        <div>{{review.review_member}}</div> 
+        <div>{{review.get_score_display}}</div>
+        <div class="border-bottom">{{review.comment}}</div>
         {% endfor %}
-    </table>
-        <a href="{% url 'top' %}">TOP</a>
+      </div>
+    </div>
+    <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab" tabindex="0">...</div>
+  </div>
+</div>
 {% endblock content %}

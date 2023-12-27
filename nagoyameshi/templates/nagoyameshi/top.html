@@ -16,11 +16,11 @@
         </div>
     </div>
 </div>
-<div class="container">
-    <form action="{% url 'search' %}" class="form-horizontal" method="post" enctype="multipart/form-data">
-    {% csrf_token %} 
-        <div class="row">
-            <h3>キーワードで探す</h3>
+<div class="container mt-3">
+    <form action="{% url 'nagoyameshi:search' %}" class="form-horizontal" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+        <h3>キーワードで探す</h3>
+        <div class="row align-items-end mt-2">
             <div class="col">
                 {{ form.shop_name.label_tag}}{{ form.shop_name }}
             </div>
@@ -28,25 +28,26 @@
                 {{ form.shop_area.label_tag }}{{ form.shop_area }}
             </div>
             <div class="col">
-                <input type="submit" class="btn btn-secondary btn-sm" value="検索"> 
+                <input type="submit" class="btn btn-secondary" value="検索"> 
             </div>
         </div>
     </form>
-    <div class="row">
+    <div class="row mt-3">
         <div class="col">
             <h3>こだわり条件で探す</h3>
             {% for condition in conditions %}
-                <a class="btn btn-outline-secondary btn-sm" href="{% url 'condition' condition.id %}">{{ condition }}</a>
+                <a class="btn btn-outline-secondary btn-sm m-1" href="{% url 'nagoyameshi:condition' condition.id %}">{{ condition }}</a>
             {% endfor %}
             <div class="clearfix"></div>
         </div>
     </div>
-    <div class="row">
+    <div class="row mt-3">
         <div class="col">
             <h3>料理ジャンルで探す</h3>
             {% for genre in genres %}
-                <a class="btn btn-outline-secondary btn-sm" href="{% url 'genre' genre=genre.0 %}">{{ genre.1 }}</a>
+                <a class="btn btn-outline-secondary btn-sm m-1" href="{% url 'nagoyameshi:genre' genre.id %}">{{ genre }}</a>
             {% endfor %}
+            </div>
         </div>
     </div>
 </div>

@@ -3,35 +3,26 @@
 {% block title %}検索結果{% endblock %}
 
 {% block content %}
+<a href="{% url 'nagoyameshi:top' %}">TOP</a>
 <h1>{{ data }}の検索結果<h1>
-
 <div class="row">
-    <div class="col float-start">
+    <div class="col mx-auto">
         {% for item in data %}
-        <a href="/nagoyameshi/detail/{{item.id}}" class="btn w-25">        
+        <a href="/nagoyameshi/detail/{{item.id}}" class="btn w-25 text-nowrap">        
             <div class="card" style="max-width: 25rem">
                 <img src="{{item.image.url}}" class="card-img-top" alt="画像無し" style="height: 150px; object-fit: cover;">
                 <div class="card-body">
                     <h3 class="card-title">{{ item.name }}</h3>
-                    <p class="card-text">{{ item.genre }}</p>
+                    <p class="card-text">
+                        {% for genre in item.genre.all %}
+                        {{ genre }}
+                        {% endfor %}</p>
                 </div>
-            </div>  
+            </div>
         </a>
         {% endfor %}
     </div>
 </div>
 <div class="clearfix"></div>
-<a href="{% url 'top' %}">TOP</a>
-{% endblock content %}
 
-{% comment %}
-    <table>
-        <tr><th>店舗名</th></tr>
-    {% for item in data %}
-        <tr>
-            <th>{{item.name}}</th>
-            <th><a href="/nagoyameshi/detail/{{item.id}}">詳細</a></th>
-        </tr>
-    
-    </table>
-{% endcomment %}
+{% endblock content %}

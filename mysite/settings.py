@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'nagoyameshi',
     'phonenumber_field',
+    'accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [
@@ -132,7 +133,9 @@ LOGOUT_REDIRECT_URL = 'top'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media_local'
 
-'''
-MEDIA_URL = '/images/'
-MEDIA_ROOT = BASE_DIR / 'nagoyameshi' / 'images'
-'''
+
+AUTH_USER_MODEL = 'nagoyameshi.Member'
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
