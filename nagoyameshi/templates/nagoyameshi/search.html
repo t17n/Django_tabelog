@@ -4,11 +4,11 @@
 
 {% block content %}
 <a href="{% url 'nagoyameshi:top' %}">TOP</a>
-<h1>{{ data }}の検索結果<h1>
+<h3>{{ data }}の検索結果</h3>
 <div class="row">
     <div class="col mx-auto">
         {% for item in data %}
-        <a href="/nagoyameshi/detail/{{item.id}}" class="btn w-25 text-nowrap">        
+        <a href="/nagoyameshi/detail/{{item.id}}" class="btn w-25 text-nowrap">
             <div class="card" style="max-width: 25rem">
                 <img src="{{item.image.url}}" class="card-img-top" alt="画像無し" style="height: 150px; object-fit: cover;">
                 <div class="card-body">

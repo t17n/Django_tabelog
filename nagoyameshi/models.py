@@ -77,7 +77,7 @@ class Member(AbstractUser):
     # paid = models.BooleanField(verbose_name="有料会員",)
     name = models.CharField(verbose_name="名前", max_length=50,)
     email = models.EmailField(verbose_name="email", max_length=50,)
-    password = models.CharField(verbose_name="パスワード", max_length=10)
+    password = models.CharField(verbose_name="パスワード", max_length=128)
     
     # クレジットカード情報
     cardholder_name = models.CharField(verbose_name="クレジットカード登録名", max_length=100, blank=True, null=True) 
