@@ -19,6 +19,7 @@ def top(request):
     }
     return render(request, 'nagoyameshi/top.html', params)
 
+# キーワード検索
 def search(request):
     if (request.method == 'POST'):
         form = SearchForm(request.POST)
@@ -26,7 +27,6 @@ def search(request):
             shop_name = form.cleaned_data['shop_name']
             shop_area = form.cleaned_data['shop_area']
 
-            # ChatGPT先生
             # 両方が空でない場合はAND条件で検索
             if shop_name and shop_area:
                 data = Shop.objects.filter(Q(name__contains=shop_name) & Q(neareststation__contains=shop_area))
@@ -46,6 +46,7 @@ def search(request):
     }
     return render(request, 'nagoyameshi/search.html', params)
 
+# ジャンル検索
 def genre(request, genre):
     # genre = request.GET.get('genre', '')
     data = Shop.objects.filter(genre=genre)
@@ -54,6 +55,7 @@ def genre(request, genre):
     }
     return render(request, 'nagoyameshi/search.html', params)
 
+# こだわり条件検索
 def condition(request, id):
     data = Shop.objects.filter(condition__id=id)
     params = {

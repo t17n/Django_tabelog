@@ -39,9 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'nagoyameshi',
-    'phonenumber_field',
+    # 'phonenumber_field',
     'accounts.apps.AccountsConfig',
 ]
+
+# Userモデル（Member）のカスタマイズ
+AUTH_USER_MODEL = 'nagoyameshi.Member'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
