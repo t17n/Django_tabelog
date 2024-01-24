@@ -4,7 +4,7 @@
 
 {% block content %}
 <a href="{% url 'nagoyameshi:top' %}">TOP</a>
-<h3>{{ data }}の検索結果</h3>
+{% comment %} <h3>{{ data }}の検索結果</h3> {% endcomment %}
 <div class="row">
     <div class="col mx-auto">
         {% for item in data %}

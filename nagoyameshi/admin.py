@@ -9,7 +9,7 @@ from django.contrib.auth.admin import UserAdmin
 @admin.register(Member)
 class MemberAdmin(UserAdmin):
     fieldsets = (
-        (None, {"fields": ("name", "email", "password")})
+        (None, {"fields": ("name", "email", "password")}),
     )
 
 
@@ -25,7 +25,7 @@ class ReviewAdmin(admin.ModelAdmin):
     list_display = ('review_shop',)
 
 admin.site.register(Shop, ShopAdmin)
-admin.site.register(Member, MemberAdmin)
+# admin.site.register(Member, MemberAdmin)
 admin.site.register(Sales)
 admin.site.register(Reservation)
 admin.site.register(Review, ReviewAdmin)

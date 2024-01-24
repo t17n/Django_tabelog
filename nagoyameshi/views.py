@@ -47,9 +47,12 @@ def search(request):
     return render(request, 'nagoyameshi/search.html', params)
 
 # ジャンル検索
-def genre(request, genre):
-    # genre = request.GET.get('genre', '')
-    data = Shop.objects.filter(genre=genre)
+# genreで検索するパターン
+# def genre(request, genre):
+    # data = Shop.objects.filter(genre=genre)
+# idで検索するパターン
+def genre(request, id):
+    data = Shop.objects.filter(genre__id=id)
     params = {
         'data': data
     }

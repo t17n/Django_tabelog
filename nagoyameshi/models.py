@@ -1,5 +1,5 @@
 from django.db import models
-# from phonenumber_field.modelfields import PhoneNumberField
+from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.auth.models import AbstractUser
 
 
@@ -52,7 +52,7 @@ class Shop(models.Model):
     '''
     name = models.CharField(verbose_name="店名", max_length=50)
     image = models.ImageField(verbose_name="写真", blank=True, default="media_local/noImage.png", upload_to="media_local")
-    # phonenumber = PhoneNumberField(verbose_name="電話番号", region='JP', default="01-2345-6789")
+    phonenumber = PhoneNumberField(verbose_name="電話番号", region='JP', default="01-2345-6789")
     address = models.CharField(verbose_name="住所", max_length=100, default="名古屋市")
     access = models.CharField(verbose_name="アクセス", max_length=100, default="徒歩5分")
     neareststation = models.CharField(verbose_name="最寄駅", max_length=50, default="名古屋駅")
