@@ -30,7 +30,7 @@ class DayOfWeek(models.Model):
 # 店舗モデル
 class Shop(models.Model):
     name = models.CharField(verbose_name="店名", max_length=50)
-    image = models.ImageField(verbose_name="写真", blank=True, default="media_local/noImage.png", upload_to="media_local")
+    image = models.ImageField(verbose_name="写真", blank=True, default="nagoyameshi/media_local/noImage.png")
     phonenumber = PhoneNumberField(verbose_name="電話番号", region='JP', default="01-2345-6789")
     address = models.CharField(verbose_name="住所", max_length=100, default="名古屋市")
     access = models.CharField(verbose_name="アクセス", max_length=100, default="徒歩5分")

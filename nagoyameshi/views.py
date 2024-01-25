@@ -22,7 +22,10 @@ def top(request):
 
 # キーワード検索
 def search(request):
-    if (request.method == 'POST'):
+    form = SearchForm()
+    data = Shop.objects.none()
+
+    if request.method == 'POST':
         form = SearchForm(request.POST)
         if form.is_valid():
             shop_name = form.cleaned_data['shop_name']
@@ -40,10 +43,13 @@ def search(request):
                 if shop_area:
                     query |= Q(neareststation__contains=shop_area)
                 data = Shop.objects.filter(query)
-    page = Paginator(data, 9)
+
+    page_number = request.GET.get('page', 1)
+    page = Paginator(data, 9).get_page(page_number)
+
     params = {
         'form': form,
-        'data': page.get_page(id),
+        'data': page
     }
     return render(request, 'nagoyameshi/search.html', params)
 
@@ -58,7 +64,7 @@ def genre(request, id):
     params = {
         'data': page.get_page(id),
     }
-    return render(request, 'nagoyameshi/search.html', params)
+    return render(request, 'nagoyameshi/search_genre.html', params)
 
 # こだわり条件検索
 def condition(request, id):
@@ -67,7 +73,7 @@ def condition(request, id):
     params = {
         'data': page.get_page(id),
     }
-    return render(request, 'nagoyameshi/search.html', params)
+    return render(request, 'nagoyameshi/search_condition.html', params)
 
 
 class ShopList(ListView):

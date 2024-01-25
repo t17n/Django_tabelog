@@ -28,10 +28,10 @@
 <ul class="pagination justify-content-center">
     {% if data.has_previous %}
     <li class="page-item">
-        <a class="page-link" href="{% url 'nagoyameshi:search'%}?page=1">&laquo; 最初</a>
+        <a class="page-link" href="{% url 'nagoyameshi:condition' id=1 %}">&laquo; 最初</a>
     </li>
     <li class="page-item">
-        <a class="page-link" href="{% url 'nagoyameshi:search'%}?page=data.previous_page_number"> &laquo; 前</a>
+        <a class="page-link" href="{% url 'nagoyameshi:condition' id=data.previous_page_number %}"> &laquo; 前</a>
     </li>
     {% else %}
     <li class="page-item"><a class="page-link">&laquo; 最初</a></li>
@@ -42,10 +42,10 @@
     </li>
     {% if data.has_next %}
     <li class="page-item">
-        <a class="page-link" href="{% url 'nagoyameshi:search' %}?page={{ data.next_page_number }}">次 &raquo;</a>
+        <a class="page-link" href="{% url 'nagoyameshi:condition' id=data.next_page_number %}">次 &raquo;</a>
     </li>
     <li class="page-item">
-        <a class="page-link" href="{% url 'nagoyameshi:search' %}?page={{ data.paginator.num_pages }}">最後 &raquo;</a>
+        <a class="page-link" href="{% url 'nagoyameshi:condition' id=data.paginator.num_pages %}">最後 &raquo;</a>
     </li>
     {% else %}
     <li class="page-item"><a class="page-link">次 &raquo;</a></li>
