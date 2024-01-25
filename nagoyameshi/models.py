@@ -12,18 +12,6 @@ SCORE_CHOICES = [
     (5, '★★★★★'),
 ]
 
-WEEKDAY_CHOICES = [
-    ('月曜日', '月曜日'),
-    ('火曜日', '火曜日'),
-    ('水曜日', '水曜日'),
-    ('木曜日', '木曜日'),
-    ('金曜日', '金曜日'),
-    ('土曜日', '土曜日'),
-    ('日曜日', '日曜日'),
-    ('祝日', '祝日'),
-    ('無休', '無休'),
-]
-
 class Condition(models.Model):
     kodawari = models.CharField(verbose_name="こだわり条件", max_length=50,)
     def __str__(self):
@@ -41,15 +29,6 @@ class DayOfWeek(models.Model):
     
 # 店舗モデル
 class Shop(models.Model):
-    '''
-    GENRE_CHOICES = [
-        ('和食', '和食'),
-        ('洋食', '洋食'),
-        ('魚介', '魚介'),
-        ('ピザ・パスタ', 'ピザ・パスタ'),
-        ('カレー', 'カレー'),
-    ]
-    '''
     name = models.CharField(verbose_name="店名", max_length=50)
     image = models.ImageField(verbose_name="写真", blank=True, default="media_local/noImage.png", upload_to="media_local")
     phonenumber = PhoneNumberField(verbose_name="電話番号", region='JP', default="01-2345-6789")
@@ -84,11 +63,6 @@ class Member(AbstractUser):
     card_number = models.CharField(verbose_name="カード番号", max_length=16, blank=True, null=True)  # 仮の設定。実際には暗号化が必要です
     expiration_date = models.DateField(verbose_name="有効期限", blank=True, null=True, )
     cvv = models.CharField(verbose_name="cvv", max_length=4, blank=True, null=True)  # 仮の設定。実際には暗号化が必要です
-
-    # favorite_shop = models.CharField(verbose_name="お気に入り", max_length=50, blank=True, null=True)
-    # review_shop = models.CharField(verbose_name="レビューした店舗", max_length=50, blank=True, null=True)
-    # m_review = models.TextField(verbose_name="レビュー", blank=True, null=True)
-    # reservedshop = models.CharField(verbose_name="予約店舗", max_length=50, blank=True, null=True)
     
     created_at = models.DateField(auto_now_add = True, null=True)
     updated_at = models.DateField(auto_now = True)
@@ -114,7 +88,6 @@ class Sales(models.Model):
 class Reservation(models.Model):
     reserve_shop = models.ForeignKey(Shop, on_delete=models.PROTECT, verbose_name="店舗")
     res_customer = models.ForeignKey(Member, on_delete=models.PROTECT, verbose_name="予約者")
-    # name = models.CharField(max_length=50) 
     day = models.DateTimeField(verbose_name="予約日時")
     numpeople = models.IntegerField(verbose_name="予約人数")
     created_at = models.DateField(auto_now_add=True)

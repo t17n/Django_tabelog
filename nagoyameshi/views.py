@@ -6,6 +6,7 @@ from django.db.models import Q
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import AuthenticationForm
+from django.core.paginator import Paginator
 
 
 def top(request):
@@ -39,30 +40,32 @@ def search(request):
                 if shop_area:
                     query |= Q(neareststation__contains=shop_area)
                 data = Shop.objects.filter(query)
-
+    page = Paginator(data, 9)
     params = {
         'form': form,
-        'data': data,
+        'data': page.get_page(id),
     }
     return render(request, 'nagoyameshi/search.html', params)
 
 # ジャンル検索
-# genreで検索するパターン
+# 値で検索するパターン
 # def genre(request, genre):
     # data = Shop.objects.filter(genre=genre)
 # idで検索するパターン
 def genre(request, id):
     data = Shop.objects.filter(genre__id=id)
+    page = Paginator(data, 9)
     params = {
-        'data': data
+        'data': page.get_page(id),
     }
     return render(request, 'nagoyameshi/search.html', params)
 
 # こだわり条件検索
 def condition(request, id):
     data = Shop.objects.filter(condition__id=id)
+    page = Paginator(data, 9)
     params = {
-        'data': data
+        'data': page.get_page(id),
     }
     return render(request, 'nagoyameshi/search.html', params)
 

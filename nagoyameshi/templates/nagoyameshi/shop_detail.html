@@ -86,7 +86,7 @@
     <div class="tab-pane" id="review" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
       <div class="row">
         {% for review in shop.reviews.all %}
-        <div>{{review.review_member}}</div> 
+        <div>{{review.review_member}}</div>
         <div>{{review.get_score_display}}</div>
         <div class="border-bottom">{{review.comment}}</div>
         {% endfor %}

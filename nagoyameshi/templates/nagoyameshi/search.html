@@ -5,6 +5,7 @@
 {% block content %}
 <a href="{% url 'nagoyameshi:top' %}">TOP</a>
 {% comment %} <h3>{{ data }}の検索結果</h3> {% endcomment %}
+<h3>検索結果</h3>
 <div class="row">
     <div class="col mx-auto">
         {% for item in data %}
@@ -24,4 +25,31 @@
     </div>
 </div>
 <div class="clearfix"></div>
+<ul class="pagination justify-content-center">
+    {% if data.has_previous %}
+    <li class="page-item">
+        <a class="page-link" href="{% if view_type == 'genre' %}{% url 'nagoyameshi:genre' id=1 %}{% else %}{% url 'nagoyameshi:condition' id=1 %}{% endif %}">&laquo; 最初</a>
+    </li>
+    <li class="page-item">
+        <a class="page-link" href="{% if view_type == 'genre' %}{% url 'nagoyameshi:genre' id=data.previous_page_number %}{% else %}{% url 'nagoyameshi:condition' id=data.previous_page_number %}{% endif %}"> &laquo; 前</a>
+    </li>
+    {% else %}
+    <li class="page-item"><a class="page-link">&laquo; 最初</a></li>
+    <li class="page-item"><a class="page-link">&laquo; 前</a></li>
+    {% endif %}
+    <li class="page-item">
+        <a class="page-link">{{data.number}}/{{data.paginator.num_pages}}</a>
+    </li>
+    {% if data.has_next %}
+    <li class="page-item">
+        <a class="page-link" href="{% if view_type == 'genre' %}{% url 'nagoyameshi:genre' id=data.next_page_number %}{% else %}{% url 'nagoyameshi:condition' id=data.next_page_number %}{% endif %}">次 &raquo;</a>
+    </li>
+    <li class="page-item">
+        <a class="page-link" href="{% if view_type == 'genre' %}{% url 'nagoyameshi:genre' id=data.paginator.num_pages %}{% else %}{% url 'nagoyameshi:condition' id=data.paginator.num_pages %}{% endif %}">最後 &raquo;</a>
+    </li>
+    {% else %}
+    <li class="page-item"><a class="page-link">次 &raquo;</a></li>
+    <li class="page-item"><a class="page-link">最後 &raquo;</a></li>
+    {% endif %}
+</ul>
 {% endblock content %}
