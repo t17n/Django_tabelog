@@ -5,8 +5,8 @@
 
 {% block content %}
 <a href="{% url 'nagoyameshi:top' %}">TOP</a>
-<div class="container text-center w-75">
-  <div class="row">
+<div class="container w-75">
+  <div class="row text-center">
     <h1 class="col text-center">{{shop.name}}</h1>
   </div>
   <!-- Nav tabs -->
@@ -24,7 +24,7 @@
     
     <!-- Tab panes -->
   <div class="tab-content">
-    <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+    <div class="tab-pane active text-center" id="home" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
       <img class="card-img-top" src="{{shop.image.url}}">
         <div class="row border-bottom">
           <div class="col">店舗名</div>
@@ -85,14 +85,33 @@
     </div>
     <div class="tab-pane" id="review" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
       <div class="row">
-        {% for review in shop.reviews.all %}
-        <div>{{review.review_member}}</div>
-        <div>{{review.get_score_display}}</div>
-        <div class="border-bottom">{{review.comment}}</div>
-        {% endfor %}
+        <form>
+        {% csrf_token %}
+          <label>評価</label>
+          <select class="form-control" name="score">
+            <option value="1">★（もう行かない）</option>
+            <option value="2">★★</option>
+            <option value="3">★★★（普通）</option>
+            <option value="4">★★★★</option>
+            <option value="5">★★★★★（また行きたい）</option>
+            {% comment %}for文で表示
+            {% for choice in review.score.field.choices %}
+                <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+            {% endfor %}
+            {% endcomment %}
+          </select>
+          <label>コメント</label>
+          <textarea class="form-control" name="text" roes="3"></textarea>
+          <div class=text-center>
+            <input type="hidden" name="detail" value="{{ shop.id }}">
+            <button type="submit" class="btn btn-secondary">投稿する</button>
+          </div>
+        </form>
       </div>
     </div>
-    <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab" tabindex="0">...</div>
+    <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab" tabindex="0">
+      
+    </div>
   </div>
 </div>
 {% endblock content %}

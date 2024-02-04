@@ -1,0 +1,19 @@
+# Pythonのキャッシュが自動生成されているので除外
+__pycache__/
+
+# 環境変数を除外
+.env
+
+# 仮想環境を除外
+/venv/
+
+# mediaディレクトリに.gitkeepファイルを作成し、それ以外を除外
+/media/*
+!/media/.gitkeep
+
+# staticディレクトリに.gitkeepファイルを作成し、それ以外を除外
+/static/*
+!/static/.gitkeep
+
+# DBを除外
+nagoyameshi.db

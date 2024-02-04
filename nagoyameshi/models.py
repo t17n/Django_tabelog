@@ -103,8 +103,8 @@ class Reservation(models.Model):
 # レビューモデル
 class Review(models.Model):
     review_shop = models.ForeignKey("Shop", on_delete=models.CASCADE, related_name="reviews", verbose_name="店舗")
-    photo = models.ImageField(verbose_name="写真", blank=True, null=True)
-    review_member = models.ForeignKey(Member, on_delete=models.PROTECT, verbose_name="レビュー者")
+    # photo = models.ImageField(verbose_name="写真", blank=True, null=True)
+    review_member = models.ForeignKey(Member, on_delete=models.CASCADE, verbose_name="レビュー者")
     score = models.PositiveSmallIntegerField(verbose_name="レビュースコア", choices=SCORE_CHOICES, default=3)
     comment = models.TextField(verbose_name="コメント")
     created_at = models.DateField(auto_now_add=True)

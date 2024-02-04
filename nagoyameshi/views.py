@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Shop, Condition, Genre
-from django.views.generic import ListView, DetailView
+from .models import Shop, Condition, Genre, Review
+from django.views.generic import ListView, CreateView, DetailView
 from .forms import SearchForm
 from django.db.models import Q
 from django.contrib.auth.views import LoginView, LogoutView
@@ -23,7 +23,7 @@ def top(request):
 # キーワード検索
 def search(request):
     form = SearchForm()
-    data = Shop.objects.none()
+    data = Shop.objects.all()
 
     if request.method == 'POST':
         form = SearchForm(request.POST)
@@ -79,6 +79,8 @@ def condition(request, id):
 class ShopList(ListView):
     model = Shop
 
+
+# 店舗詳細表示
 def ShopDetail(request, pk):
     shop = get_object_or_404(Shop, pk=pk)
     conditions = shop.condition.all()
@@ -87,6 +89,19 @@ def ShopDetail(request, pk):
         'conditions': conditions,
     }
     return render(request, "nagoyameshi/shop_detail.html", params)
+
+# 店舗詳細画面からレビュー作成
+class CreateReview(CreateView):
+    model = Review
+    fields = ('score', 'comment')
+    template_name = 'nagoyameshi/shop_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['score_choices'] = Review._meta.get_field('score').choices
+        return context
+
+
 '''
 class LoginView(LoginView):
     form_class = AuthenticationForm
