@@ -12,9 +12,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 
-# 環境変数設定の為にインポート（Python-dotenv）
-from dotenv import load_dotenv
-load_dotenv
+# 環境変数設定の為にインポート
+# from dotenv import load_dotenv
+# load_dotenv
 
 from pathlib import Path
 
@@ -27,7 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # 環境変数を変更。.envにコピー
-SECRET_KEY = os.getenv('SECRET_KEY')
+# SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = 'django-insecure-v%1u%^^o#7=m53&#i#e9+_mvsiil3!qzr)yx#k*an1x0k*lj#-'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
