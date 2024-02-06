@@ -28,13 +28,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 # 環境変数を変更。.envにコピー
 # SECRET_KEY = os.getenv('SECRET_KEY')
-SECRET_KEY = 'django-insecure-v%1u%^^o#7=m53&#i#e9+_mvsiil3!qzr)yx#k*an1x0k*lj#-'
+# SECRET_KEY = 'django-insecure-v%1u%^^o#7=m53&#i#e9+_mvsiil3!qzr)yx#k*an1x0k*lj#-'
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# ローカルのDebugをlocal_settings.pyでTrueにしたので、本番環境ではFalseになるよう設定
+DEBUG = False
 
-ALLOWED_HOSTS = []
+# ホストにHerokuを追加
+ALLOWED_HOSTS = ['127.0.0.1', 'herokuapp.com']
 
 
 # Application definition
@@ -56,6 +58,10 @@ AUTH_USER_MODEL = 'nagoyameshi.Member'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+
+    # CSS反映
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -143,7 +149,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+
+#CSSファイルの設定
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -163,3 +176,23 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
+
+
+
+#Heroku database
+import dj_database_url
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
+
+db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
+DATABASES['default'].update(db_from_env)
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass
+
+if not DEBUG:
+    SECRET_KEY = 'django-insecure-v%1u%^^o#7=m53&#i#e9+_mvsiil3!qzr)yx#k*an1x0k*lj#-'
+    import django_heroku
+    django_heroku.settings(locals())
